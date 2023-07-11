@@ -1,0 +1,75 @@
+.task {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: var(--gray-500);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1.5rem;
+  border: 1px solid var(--gray-400);
+}
+
+.task + .task {
+  margin-top: 0.75rem;
+}
+
+.task td > button {
+  background: transparent;
+  border: 2px solid var(--blue);
+  border-radius: 50%;
+  width: calc(1rem + 2px);
+  height: calc(1rem + 2px);
+  cursor: pointer;
+
+  transition: color 0.1s, background-color 0.1s;
+}
+
+.task td > button:hover {
+  background: rgba(30, 111, 159, 0.3);
+  border: 2px solid var(--blue-dark);
+  opacity: 0.9;
+}
+
+.task td {
+  font-size: 0.875rem;
+  color: var(--gray-100);
+  line-height: 1.4;
+}
+
+.taskDone {
+  border: 0;
+}
+
+.taskDone td {
+  text-decoration: line-through;
+  color: var(--gray-300) !important;
+}
+
+.task td:first-child > svg {
+  color: var(--gray-100);
+  background: var(--purple-dark);
+  border-radius: 50%;
+  padding: 0.2rem;
+  cursor: pointer;
+
+  transition: color 0.1s, background-color 0.1s;
+}
+
+.task td:first-child > svg:hover {
+  background: var(--purple);
+}
+
+.task td:last-child > svg {
+  color: var(--gray-300);
+  padding: calc(1rem - 11px) 0.375rem;
+  border-radius: 8px;
+  cursor: pointer;
+
+  transition: color 0.1s, background-color 0.1s;
+}
+
+.task td:last-child > svg:hover {
+  background: var(--gray-400);
+  color: var(--danger);
+  border-radius: 8px;
+}

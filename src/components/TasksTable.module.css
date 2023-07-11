@@ -1,0 +1,50 @@
+.tasksTable {
+  width: 100%;
+  margin-top: 4rem;
+}
+
+.tasksTable thead {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tasksTable thead tr {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.tasksTable thead tr th {
+  color: var(--blue);
+  font-size: 0.875rem;
+}
+
+.tasksTable thead tr:last-child th {
+  color: var(--purple);
+}
+
+.tasksTable thead tr > td {
+  color: var(--gray-200);
+  background: var(--gray-400);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.125rem 0.5rem;
+  border-radius: 8px;
+}
+
+.tasksTable tbody .noTask {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--gray-400);
+}
+
+.tasksTable tbody .noTask td img {
+  margin-top: 4rem;
+  margin-bottom: 1rem;
+}
+
+.tasksTable tbody .noTask td {
+  line-height: 1.4;
+}
