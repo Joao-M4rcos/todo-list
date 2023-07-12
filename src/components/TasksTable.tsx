@@ -1,58 +1,66 @@
-import styles from "./TasksTable.module.css";
 import { Task, TaskType } from "./Task";
-import { v4 as uuidv4 } from "uuid";
 import clipboardIcon from "../assets/clipboard-icon.svg";
 
-const tasks: TaskType[] = [
-  {
-    id: uuidv4(),
-    done: false,
-    content:
-      "Integer urna interdum massa libero auctor neque turpis turpis semper Duis vel sed fames integer.",
-  },
-  {
-    id: uuidv4(),
-    done: false,
-    content:
-      "Integer urna interdum massa libero auctor neque turpis turpis semper Duis vel sed fames integer.",
-  },
-  {
-    id: uuidv4(),
-    done: false,
-    content:
-      "Integer urna interdum massa libero auctor neque turpis turpis semper Duis vel sed fames integer.",
-  },
-  {
-    id: uuidv4(),
-    done: true,
-    content:
-      "Integer urna interdum massa libero auctor neque turpis turpis semper Duis vel sed fames integer.",
-  },
-  {
-    id: uuidv4(),
-    done: true,
-    content:
-      "Integer urna interdum massa libero auctor neque turpis turpis semper Duis vel sed fames integer.",
-  },
-];
+import styles from "./TasksTable.module.css";
 
-export function TasksTable() {
+interface TaskTableProps {
+  tasks: TaskType[];
+  onSetTasks: (tasks: TaskType[]) => void;
+}
+
+export function TasksTable({ tasks, onSetTasks }: TaskTableProps) {
+  function deleteTask(taskToDelete: string) {
+    const tasksWithoutDeleteOne = tasks.filter((task) => {
+      return task.id != taskToDelete;
+    });
+
+    onSetTasks(tasksWithoutDeleteOne);
+  }
+
+  function changeTaskStatus(taskToChangeStatus: TaskType) {
+    const newStatus = !taskToChangeStatus.done;
+
+    tasks.map((task) => {
+      if (task.id == taskToChangeStatus.id) task.done = newStatus;
+    });
+
+    onSetTasks([...tasks]);
+  }
+
+  // It counts the tasks already concluded to be displayed
+  const concludedTasks = tasks.reduce(
+    (concludedTasks: number, task: TaskType) => {
+      if (task.done) concludedTasks++;
+      return concludedTasks;
+    },
+    0
+  );
+
   return (
     <table className={styles.tasksTable}>
       <thead>
         <tr>
           <th>Added tasks</th>
-          <td>5</td>
+          <td>{tasks.length}</td>
         </tr>
         <tr>
           <th>Concluded</th>
-          <td>2 de 5</td>
+          <td>
+            {concludedTasks} of {tasks.length}
+          </td>
         </tr>
       </thead>
       <tbody>
         {tasks.length ? (
-          tasks.map((task) => {
-            return <Task key={task.id} task={task} />;
+          [...tasks].reverse().map((task) => {
+            return (
+              <Task
+                key={task.id}
+                task={task}
+                onDeleteTask={deleteTask}
+                onTaskStatusChange={changeTaskStatus}
+              />
+            );
           })
         ) : (
           <tr className={styles.noTask}>

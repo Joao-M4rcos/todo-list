@@ -1,5 +1,6 @@
-import styles from "./Task.module.css";
 import { Check, Trash } from "phosphor-react";
+
+import styles from "./Task.module.css";
 
 export interface TaskType {
   id: string;
@@ -9,21 +10,38 @@ export interface TaskType {
 
 interface TaskProps {
   task: TaskType;
+  onDeleteTask: (task: string) => void;
+  onTaskStatusChange: (task: TaskType) => void;
 }
 
-export function Task({ task }: TaskProps) {
+export function Task({ task, onDeleteTask, onTaskStatusChange }: TaskProps) {
+  function handleDeleteTask() {
+    onDeleteTask(task.id);
+  }
+
+  function handleTaskStatusChange() {
+    onTaskStatusChange(task);
+  }
+
   return (
     <tr className={styles.task + " " + (task.done ? styles.taskDone : "")}>
       <td>
-        {task.done && <Check size={18} weight="bold" />}
-        {!task.done && <button></button>}
+        {task.done ? (
+          <button className={styles.doneBtn} onClick={handleTaskStatusChange}>
+            <Check size={18} weight="bold" />
+          </button>
+        ) : (
+          <button
+            className={styles.notDoneBtn}
+            onClick={handleTaskStatusChange}
+          ></button>
+        )}
       </td>
+      <td>{task.content}</td>
       <td>
-        Integer urna interdum massa libero auctor neque turpis turpis semper.
-        Duis vel sed fames integer.
-      </td>
-      <td>
-        <Trash size={30} />
+        <button className={styles.deleteBtn} onClick={handleDeleteTask}>
+          <Trash size={18} />
+        </button>
       </td>
     </tr>
   );
