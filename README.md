@@ -9,7 +9,7 @@
   </a>
 </p>
 
-> A application where you can add, remove and check a task as completed.
+> An application where you can add, remove and check a task as completed.
 
 ## Install
 
